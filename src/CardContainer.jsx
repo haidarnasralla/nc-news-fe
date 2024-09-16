@@ -10,7 +10,6 @@ const CardContainer = () => {
         getArticles()
         .then((data) => {
             setArticles(data)
-            console.log(data)
         })
         .catch((err) => console.log(err))
     }, [getArticles, setArticles])
