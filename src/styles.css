@@ -93,9 +93,8 @@ form select {
     border-radius: 8px;
     padding: 20px;
     margin: 20px auto;
-    max-width: 800px; /* Adjust this value to match the width of the comment card */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Ensure it uses the full width within its container */
+    max-width: 800px;
+    width: 100%;
 }
 
 .article h1 {
