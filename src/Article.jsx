@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getArticleById } from './api';
 import { convertDate } from "./utils";
+import CommentCard from './CommentCard';
 
 const Article = () => {
     const { article_id } = useParams()
@@ -32,6 +33,7 @@ const Article = () => {
     }
 
     return (
+        <>
         <div className="article">
             <h1>{article.title}</h1>
             <img src={article.article_img_url} alt={article.title} />
@@ -39,10 +41,12 @@ const Article = () => {
                 <p>Posted by {article.author} on {convertDate(article.created_at)}</p>
             </div>
             <p>{article.body}</p>
-            <div className="comments-votes">
+            <div className="article-comments-votes">
                 <p>{article.comment_count} comments, {article.votes} votes</p>
             </div>
         </div>
+        <CommentCard article_id={article_id}/>
+        </>
     )
 };
 
