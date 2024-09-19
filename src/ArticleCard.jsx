@@ -12,7 +12,7 @@ const ArticleCard = ({ articles }) => {
                     <img src={article.article_img_url}/>
                     <p>Posted by {article.author} on {convertDate(article.created_at)}</p>
                     <p>{article.comment_count} comments, {article.votes} votes</p>
-                    <Link to={`/${article.article_id}`}>
+                    <Link to={`/articles/${article.article_id}`}>
                             <button>Read article</button>
                         </Link>
                 </div>

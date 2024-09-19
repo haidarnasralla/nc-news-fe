@@ -5,19 +5,27 @@ import { getComments } from "./api"
 const CommentCard = ({article_id}) => {
 
     const [comments, setComments] = useState()
+    const [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
         getComments(article_id)
             .then((data) => {
                 setComments(data)
+                setLoading(false)
             })
             .catch((err) => {
                 console.error('Error fetching comments', err)
+                setLoading(false)
             })
-    }, [article_id])
+    }, [article_id, setLoading])
+
+    if (loading) {
+        return <p className='loading-or-no-comments'>Loading comments...</p>;
+    }
 
     if (!comments) {
-        return <p>Loading comments...</p>;
+        return <p className='loading-or-no-comments'>No comments</p>;
       }
 
     return (

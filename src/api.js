@@ -18,6 +18,14 @@ export const getArticleById = (articleId) => {
 
 export const getComments = (articleId) => {
     return ncNews.get(`/articles/${articleId}/comments`).then(({data}) => {
+        console.log(data.comments)
         return data.comments
+    })
+}
+
+export const voteArticle = (articleId, vote) => {
+    return ncNews.patch(`/articles/${articleId}`, vote).then(({data}) => {
+        return data.article
+        console.log(data.article.votes)
     })
 }

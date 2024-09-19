@@ -11,5 +11,5 @@ export const convertDate = (date) => {
         year: 'numeric',
     })
 
-    return formattedDate.replace(',', ', at')
+    return formattedDate
 }
