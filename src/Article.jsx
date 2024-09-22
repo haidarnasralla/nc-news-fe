@@ -2,55 +2,55 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getArticleById, voteArticle } from './api';
 import { convertDate } from "./utils";
-import CommentCard from './CommentCard';
+import CommentSection from './CommentSection';
+
 
 const Article = () => {
     
     const { article_id } = useParams()
     const [article, setArticle] = useState()
     const [loading, setLoading] = useState(true)
-    const [hasVotedUp, setHasVotedUp] = useState(false)
-    const [hasVotedDown, setHasVotedDown] = useState(false)
+    const [likeArticle, setLikeArticle] = useState(null)
+    const [articleVotes, setArticleVotes] = useState(0)
+    const [originalVotes, setOriginalVotes] = useState(0)
 
     useEffect(() => {
             setLoading(true)
             getArticleById(article_id)
                 .then((data) => {
                     setArticle(data)
+                    setArticleVotes(data.votes)
+                    setOriginalVotes(data.votes)
                     setLoading(false)
                 })
                 .catch((err) => {
                     console.error('Error fetching article:', err)
                     setLoading(false)
                 });
-    }, [article_id, setArticle]);
+    }, [article_id]);
 
     if (loading) return <p>Loading article...</p>;
-
     if (!article) return <p>Article not found.</p>;
 
-    const handle = {
-        upVote: (e) => {
-            if (hasVotedUp){
-                return
-            } else
-            e.preventDefault()
-            const upVote = { inc_votes : 1 }
-            article.votes++
-            voteArticle(article_id, upVote).catch(() => {alert('Error - vote not recorded'); article.votes--})
-            setHasVotedUp(true)
-            setHasVotedDown(false)
-        },
-        downVote: (e) => {
-            if (hasVotedDown){
-                return
-            } else
-            e.preventDefault()
-            const downVote = { inc_votes : -1 }
-            article.votes--
-            voteArticle(article_id, downVote).catch(() => {alert('Error - vote not recorded'); article.votes++})
-            setHasVotedDown(true)
-            setHasVotedUp(false)
+    const likeArticleHandler = (e) => {
+
+        e.preventDefault()
+
+        const upVote = { inc_votes : 1 }
+        const downVote = { inc_votes : -1 }
+
+        if (likeArticle === null){
+            setArticleVotes(articleVotes + 1)
+            voteArticle(article_id, upVote)
+                .then(setLikeArticle(true))
+                .catch(() => {alert('Error - vote not recorded'); setArticleVotes(originalVotes)})
+            
+        } else if (likeArticle === true){
+            setArticleVotes(articleVotes - 1)
+            voteArticle(article_id, downVote)
+                .then(setLikeArticle(null))
+                .catch(() => {alert('Error - vote not recorded'); setArticleVotes(originalVotes)})
+            
         }
     }
 
@@ -64,12 +64,11 @@ const Article = () => {
             </div>
             <p>{article.body}</p>
             <div className="article-comments-votes">
-                <p>{article.comment_count} comments, {article.votes} votes</p>
+                <p>{article.comment_count} comments, {articleVotes} votes</p>
             </div>
-            <button onClick={(e) => handle.upVote(e)}>Upvote</button>
-            <button onClick={(e) => handle.downVote(e)}>Downvote</button>
+            <button onClick={(e) => likeArticleHandler(e)}>Like this article</button>
         </div>
-        <CommentCard article_id={article_id}/>
+        <CommentSection article_id={article_id}/>
         </>
     )
 };
