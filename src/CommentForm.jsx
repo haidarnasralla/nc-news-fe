@@ -23,8 +23,14 @@ const CommentForm = ({article_id, comments, setComments}) => {
         setIsSubmitting(true)
         setCommentBody("")
         postComment(article_id, newComment)
-            .then(setIsSubmitting(false))
-            .catch((err) => console.log(err))
+        .then(() => {
+            setIsSubmitting(false);
+            alert('Comment posted!')
+        })
+        .catch((err) => {
+            alert('Error - comment not posted');
+            console.log(err);
+        });
     }
 
     return (
