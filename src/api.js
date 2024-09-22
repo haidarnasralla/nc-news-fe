@@ -8,24 +8,33 @@ export const getArticles = () => {
     return ncNews.get('/articles').then(({ data }) => {
         return data.articles
     })
+    .catch((err) => console.log(err.response))
 }
 
 export const getArticleById = (articleId) => {
     return ncNews.get(`/articles/${articleId}`).then(({data}) => {
         return data.article
     })
+    .catch((err) => console.log(err.response))
 }
 
 export const getComments = (articleId) => {
     return ncNews.get(`/articles/${articleId}/comments`).then(({data}) => {
-        console.log(data.comments)
         return data.comments
     })
+    .catch((err) => console.log(err.response))
 }
 
 export const voteArticle = (articleId, vote) => {
     return ncNews.patch(`/articles/${articleId}`, vote).then(({data}) => {
         return data.article
-        console.log(data.article.votes)
     })
+    .catch((err) => console.log(err.response))
+}
+
+export const postComment = (articleId, comment) => {
+    return ncNews.post(`/articles/${articleId}/comments`, comment).then(({data}) => {
+        return data.comment
+    })
+    .catch((err) => console.log(err.response))
 }

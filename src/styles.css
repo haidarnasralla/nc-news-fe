@@ -137,6 +137,14 @@ form select {
     text-align: center;
 }
 
+.article button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+}
+
 .comment-card {
     background-color: white;
     border-radius: 8px;
@@ -173,4 +181,34 @@ form select {
     margin: 10px auto;
     max-width: 800px;
     width: 100%;
+}
+
+.post-comment {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.post-comment textarea {
+    width: 100%;
+    height: 60px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.post-comment button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
 }
