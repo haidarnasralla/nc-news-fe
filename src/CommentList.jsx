@@ -1,6 +1,6 @@
 import CommentCard from './CommentCard';
 
-const CommentList = ({comments, setComments}) => {
+const CommentList = ({comments, deleteComment }) => {
 
     return (
         <div>
@@ -13,6 +13,7 @@ const CommentList = ({comments, setComments}) => {
                     author={author}
                     votes={votes}
                     created_at={created_at}
+                    deleteComment={deleteComment}
                 />
             )
         })}

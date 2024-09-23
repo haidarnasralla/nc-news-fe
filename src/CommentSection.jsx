@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getComments } from "./api"
+import { getComments, deleteCommentById } from "./api"
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 
@@ -20,6 +20,32 @@ const CommentSection = ({article_id}) => {
             })
     }, [article_id, setIsLoading, setComments])
 
+    const deleteComment = (comment_id) => {
+
+        const commentIndex = comments.findIndex((comment) => comment.comment_id === comment_id)
+        const commentToBeDeleted = comments[commentIndex]
+
+        setComments((prevComments) =>
+            prevComments.filter((comment) => comment.comment_id !== comment_id)
+        )
+    
+        deleteCommentById(comment_id)
+            .then(() => {
+                alert("Comment deleted!")
+            })
+            .catch((err) => {
+                alert("Failed to delete comment")
+                console.log(err)
+    
+                setComments((prevComments) => {
+                    const updatedComments = [...prevComments]
+                    updatedComments.splice(commentIndex, 0, commentToBeDeleted)
+                    return updatedComments
+                })
+            })
+    }
+    
+
     if (isLoading) {
         return <p className='loading-or-no-comments'>Loading comments...</p>;
     } else if (!comments) {
@@ -29,7 +55,7 @@ const CommentSection = ({article_id}) => {
     return (
         <>
         <CommentForm comments={comments} setComments={setComments} article_id={article_id}/>
-        <CommentList comments={comments} setComments={setComments}/>
+        <CommentList comments={comments} deleteComment={deleteComment}/>
         </>
     )
 

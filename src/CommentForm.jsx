@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext  } from 'react';
 import { postComment } from "./api"
+import { UserContext  } from './LoggedInUser';
 
 const CommentForm = ({article_id, comments, setComments}) => {
 
     const [commentBody, setCommentBody] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const { user } = useContext(UserContext)
 
     const handleInputChange = (e) => {
         setCommentBody(e.target.value)
@@ -13,7 +15,7 @@ const CommentForm = ({article_id, comments, setComments}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const date = new Date()
-        const newComment = { author: 'cooljmessy', body: `${commentBody}`, created_at: date }
+        const newComment = { author: `${user}`, body: `${commentBody}`, created_at: date }
         const adjustedComment = {
             votes: 0,
             comment_id: comments.length + 1,
@@ -35,17 +37,20 @@ const CommentForm = ({article_id, comments, setComments}) => {
 
     return (
     <form onSubmit={(e) => handleSubmit(e)} className='post-comment'>
-        <label>Post comment</label>
+        
         {isSubmitting ? (
             <p>Posting comment...</p>
         ) : (
+            <>
+            <label>Post comment</label>
             <textarea
             onChange={(e) => handleInputChange(e)}
             value={commentBody}
             placeholder="Write your comment here..." />
+            <button disabled={isSubmitting} type="submit">Submit</button>
+            </>
         )
     }
-        <button disabled={isSubmitting} type="submit">Submit</button>
     </form>
     )
 

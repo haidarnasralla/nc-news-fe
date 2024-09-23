@@ -38,3 +38,13 @@ export const postComment = (articleId, comment) => {
     })
     .catch((err) => console.log(err.response))
 }
+
+export const deleteCommentById = (commentId) => {
+    return ncNews.delete(`/comments/${commentId}`)
+        .then(({ data }) => {
+            return data
+        })
+        .catch((err) => {
+            return err.response
+        });
+};
