@@ -24,7 +24,7 @@ const Article = () => {
                     setLoading(false)
                 })
                 .catch((err) => {
-                    console.error('Error fetching article:', err)
+                    console.log('Error fetching article:', err.response)
                     setLoading(false)
                 });
     }, [article_id]);
