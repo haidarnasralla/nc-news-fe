@@ -11,6 +11,13 @@ export const getArticles = () => {
     .catch((err) => console.log(err.response))
 }
 
+export const getArticlesByTopic = (topic) => {
+    return ncNews.get(`/articles?topic=${topic}`).then(({ data }) => {
+        return data.articles;
+    })
+    .catch((err) => console.log(err.response));
+};
+
 export const getArticleById = (articleId) => {
     return ncNews.get(`/articles/${articleId}`).then(({data}) => {
         return data.article

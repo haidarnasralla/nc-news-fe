@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
+import { getArticlesByTopic } from "./api"
 
 const Header = () => {
+
+    let topic = null
 
     return(
         <>
