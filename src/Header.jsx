@@ -1,28 +1,35 @@
-import { Link } from "react-router-dom"
-import { getArticlesByTopic } from "./api"
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+    const navigate = useNavigate();
 
-    let topic = null
+    const handleTopicChange = (e) => {
+        const selectedTopic = e.target.value;
 
-    return(
+        if (selectedTopic === "all") {
+            navigate('/')
+        } else {
+            navigate(`/${selectedTopic}`)
+        }
+    }
+
+    return (
         <>
-        <Link to={'/'}>
-        <h1>NC News</h1>
-        </Link>
-        <form>
-            <input />
-            <button>Search</button>
-            <select>
-                <option>Select a topic</option>
-                <option>Coding</option>
-                <option>Football</option>
-                <option>Cooking</option>
-            </select>
-        </form>
+            <Link to={'/'}>
+                <h1>NC News</h1>
+            </Link>
+            <form>
+                <input />
+                <button>Search</button>
+                <select onChange={handleTopicChange}>
+                    <option value="all">All Topics</option>
+                    <option value="coding">Coding</option>
+                    <option value="football">Football</option>
+                    <option value="cooking">Cooking</option>
+                </select>
+            </form>
         </>
     )
-
 }
 
 export default Header
