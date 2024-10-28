@@ -5,6 +5,7 @@ import TopicCardContainer from "./TopicCardContainer";
 import Article from "./Article";
 import { UserProvider } from "./LoggedInUser";
 import './styles.css'
+import SearchBar from "./SearchBar";
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
         <>
         <UserProvider>
         <Header />
+        <SearchBar />
         <Routes>
             <Route path='/' element={<CardContainer />} />
             <Route path='/articles/:article_id' element={<Article />} />

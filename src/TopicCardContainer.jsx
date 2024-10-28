@@ -5,12 +5,14 @@ import ArticleCard from './ArticleCard';
 
 const TopicCardContainer = () => {
 
-    const { topic } = useParams(); // Get the topic from the URL
+    // Get the topic from the URL
+    const { topic } = useParams();
+    
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!topic) return; // If no topic, do nothing
+        if (!topic) return;
         setLoading(true);
         getArticlesByTopic(topic)
             .then((data) => {
