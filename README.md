@@ -11,8 +11,6 @@ Welcome to **NC News**, a front-end web application where users can explore arti
 1. [About the Project](#about-the-project)
 2. [Installation and Setup](#installation-and-setup)
 3. [Upcoming Features](#upcoming-features)
-4. [Contributing](#contributing)
-5. [License](#license)
 
 ---
 
